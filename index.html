@@ -1,349 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Face Tic-Tac-Toe</title>
-  <style>
-    :root {
-      --bg: #f6f1e8;
-      --panel: #ffffff;
-      --ink: #252525;
-      --accent: #7b5cff;
-      --accent2: #ff7a59;
-      --line: #292929;
-      --muted: #6c6c6c;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(123,92,255,.15), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(255,122,89,.16), transparent 28%),
-        var(--bg);
-      display: grid;
-      place-items: center;
-      padding: 24px;
-    }
-    .app {
-      width: min(960px, 100%);
-      display: grid;
-      grid-template-columns: minmax(280px, 360px) minmax(300px, 1fr);
-      gap: 28px;
-      align-items: start;
-    }
-    .panel {
-      background: rgba(255,255,255,.93);
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 18px 50px rgba(0,0,0,.10);
-      border: 1px solid rgba(0,0,0,.06);
-    }
-    h1 {
-      margin: 0 0 8px;
-      font-size: clamp(2rem, 5vw, 3.6rem);
-      line-height: .95;
-      letter-spacing: -0.05em;
-    }
-    .subtitle { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
-    .players { display: grid; gap: 16px; }
-    .player-card {
-      border: 2px solid #ececec;
-      border-radius: 18px;
-      padding: 14px;
-      display: grid;
-      grid-template-columns: 72px 1fr;
-      gap: 14px;
-      align-items: center;
-      transition: .2s ease;
-    }
-    .player-card.active {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(123,92,255,.10);
-    }
-    .avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      border: 3px solid #fff;
-      box-shadow: 0 0 0 2px #ddd;
-      object-fit: cover;
-      background: #eee;
-      display: block;
-    }
-    .avatar.placeholder {
-      display: grid;
-      place-items: center;
-      font-size: 28px;
-      font-weight: 800;
-      color: #777;
-    }
-    .player-card:nth-child(2) .avatar.placeholder { color: var(--accent2); }
-    label.upload {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 8px;
-      padding: 9px 12px;
-      border-radius: 12px;
-      background: #f1efff;
-      color: #4c35c9;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: .9rem;
-    }
-    label.upload.player2 { background: #fff0eb; color: #c94f2f; }
-    input[type=file] { display: none; }
-    input[type=text] {
-      width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 9px 10px;
-      font: inherit;
-      font-weight: 700;
-    }
-    .controls { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
-    button {
-      border: 0;
-      border-radius: 13px;
-      padding: 11px 16px;
-      font: inherit;
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform .15s ease, opacity .15s ease;
-    }
-    button:hover { transform: translateY(-1px); }
-    button:active { transform: translateY(0); }
-    .primary { background: var(--accent); color: white; }
-    .secondary { background: #ededed; color: #333; }
-    .game-panel { text-align: center; }
-    .status {
-      min-height: 30px;
-      font-weight: 900;
-      font-size: 1.15rem;
-      margin-bottom: 18px;
-    }
-    .board {
-      width: min(520px, 100%);
-      aspect-ratio: 1;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      background: var(--line);
-      border-radius: 24px;
-      padding: 10px;
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,.15);
-    }
-    .cell {
-      padding: 0;
-      border-radius: 15px;
-      background: white;
-      overflow: hidden;
-      display: grid;
-      place-items: center;
-      min-width: 0;
-      position: relative;
-    }
-    .cell:hover:not(:disabled) { background: #fafafa; }
-    .cell:disabled { cursor: default; }
-    .cell img {
-      width: 84%;
-      height: 84%;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid white;
-      box-shadow: 0 0 0 4px var(--accent);
-      animation: pop .18s ease-out;
-    }
-    .cell.player2 img { box-shadow: 0 0 0 4px var(--accent2); }
-    .cell .fallback {
-      width: 76%;
-      height: 76%;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: #efeaff;
-      color: var(--accent);
-      font-size: clamp(2rem, 9vw, 5.6rem);
-      font-weight: 1000;
-      animation: pop .18s ease-out;
-    }
-    .cell.player2 .fallback { background: #fff0eb; color: var(--accent2); }
-    .cell.win { background: #fff7bf; animation: pulse .8s ease-in-out infinite alternate; }
-    .help { margin-top: 16px; color: var(--muted); font-size: .9rem; }
-    @keyframes pop { from { transform: scale(.45); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    @keyframes pulse { to { filter: brightness(1.06); } }
-    @media (max-width: 760px) {
-      .app { grid-template-columns: 1fr; }
-      .panel { padding: 18px; border-radius: 20px; }
-      .game-panel { order: -1; }
-    }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Face‑Tac‑Toe Online</title>
+<meta name="theme-color" content="#241744">
+<style>
+:root{--ink:#261b3d;--purple:#7654e8;--orange:#ff7b59;--cream:#fff8ec;--card:#fff;--muted:#6f687a;--line:#32244d}*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 0,#e9ddff,transparent 36%),radial-gradient(circle at 100% 100%,#ffd8c9,transparent 34%),var(--cream);padding:20px}.wrap{width:min(930px,100%);margin:auto}.hero{text-align:center;margin:12px 0 20px}.hero small{font-weight:900;letter-spacing:.15em;color:var(--purple)}h1{font-size:clamp(2.6rem,8vw,5rem);line-height:.95;margin:7px 0 8px;letter-spacing:-.06em}.hero p{margin:0;color:var(--muted)}.panel{background:rgba(255,255,255,.94);border:1px solid #ffffffb8;border-radius:25px;box-shadow:0 22px 55px #37285a1b;padding:22px}.setup{max-width:650px;margin:auto}.tabs,.row,.actions,.scorebar{display:flex;gap:12px}.tabs{margin:16px 0}.tabs button{flex:1}.tab.active{background:var(--purple);color:#fff}.tab{background:#eeeaf8}.form{display:grid;gap:15px}.profile{display:grid;grid-template-columns:105px 1fr;gap:16px;align-items:center}.photo{width:105px;aspect-ratio:1;border:2px dashed #b7a8df;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#f4efff;cursor:pointer;text-align:center;font-weight:800;color:var(--purple);padding:8px}.photo img{width:100%;height:100%;object-fit:cover}.photo small{font-size:.72rem}.field{display:grid;gap:6px}.field label{font-weight:850}.field input{width:100%;padding:13px 14px;border:1px solid #d8d2e1;border-radius:13px;font:inherit;font-weight:700}.note{font-size:.88rem;color:var(--muted);margin:0;line-height:1.45}button{border:0;border-radius:13px;padding:12px 16px;font:inherit;font-weight:850;cursor:pointer}.primary{background:var(--purple);color:#fff}.secondary{background:#eeeaf8;color:var(--ink)}.text{background:transparent;color:var(--muted)}button:disabled{opacity:.48;cursor:not-allowed}.game{display:grid;grid-template-columns:minmax(260px,330px) minmax(300px,1fr);gap:22px}.side{display:grid;gap:15px;align-content:start}.room{background:#f3eeff;border-radius:18px;padding:15px}.room strong{font-size:1.7rem;letter-spacing:.12em}.share{width:100%;margin-top:10px}.players{display:grid;gap:10px}.player{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:11px;border:2px solid #ede8f3;border-radius:16px;padding:11px}.player.turn{border-color:var(--purple);box-shadow:0 0 0 4px #7654e81d}.avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#eee8ff;color:var(--purple);font-weight:950;font-size:1.35rem}.avatar.o{background:#fff0eb;color:var(--orange)}.avatar img{width:100%;height:100%;object-fit:cover}.score{font-size:1.8rem;font-weight:950}.status{padding:14px;border-radius:16px;background:#2c2142;color:#fff;text-align:center;font-weight:850;min-height:51px;display:grid;place-items:center}.board{width:min(540px,100%);margin:auto;aspect-ratio:1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:var(--line);padding:10px;border-radius:24px}.cell{padding:0;background:#fff;border-radius:15px;display:grid;place-items:center;overflow:hidden}.piece{width:78%;height:78%;border-radius:50%;display:grid;place-items:center;font-size:clamp(2rem,9vw,5.5rem);font-weight:950;background:#eee8ff;color:var(--purple);box-shadow:0 0 0 5px var(--purple);animation:pop .17s ease-out}.piece.o{background:#fff0eb;color:var(--orange);box-shadow:0 0 0 5px var(--orange)}.piece img{width:100%;height:100%;object-fit:cover;border-radius:50%}.cell.win{background:#fff1a8;animation:pulse .7s alternate infinite}.boardactions{justify-content:center;margin-top:16px;flex-wrap:wrap}.hide{display:none!important}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#241b37;color:#fff;padding:12px 18px;border-radius:999px;font-weight:800;box-shadow:0 12px 30px #0003;z-index:10}@keyframes pop{from{transform:scale(.35);opacity:0}}@keyframes pulse{to{filter:brightness(1.08)}}@media(max-width:720px){.game{grid-template-columns:1fr}.profile{grid-template-columns:85px 1fr}.photo{width:85px}.panel{padding:16px}.side{order:2}}
+</style>
 </head>
 <body>
-  <main class="app">
-    <section class="panel setup-panel">
-      <h1>Face<br>Tic-Tac-Toe</h1>
-      <p class="subtitle">Upload two face photos. The players’ pictures become the game pieces.</p>
-      <div class="players">
-        <div class="player-card active" id="card1">
-          <div id="previewWrap1" class="avatar placeholder" aria-label="Player 1 preview">1</div>
-          <div>
-            <input id="name1" type="text" value="Player 1" maxlength="20" aria-label="Player 1 name">
-            <label class="upload" for="photo1">📷 Upload face</label>
-            <input id="photo1" type="file" accept="image/*">
-          </div>
-        </div>
-        <div class="player-card" id="card2">
-          <div id="previewWrap2" class="avatar placeholder" aria-label="Player 2 preview">2</div>
-          <div>
-            <input id="name2" type="text" value="Player 2" maxlength="20" aria-label="Player 2 name">
-            <label class="upload player2" for="photo2">📷 Upload face</label>
-            <input id="photo2" type="file" accept="image/*">
-          </div>
-        </div>
-      </div>
-      <div class="controls">
-        <button class="primary" id="newGame">New Game</button>
-        <button class="secondary" id="clearPhotos">Clear Photos</button>
-      </div>
-    </section>
-    <section class="panel game-panel">
-      <div id="status" class="status">Player 1's turn</div>
-      <div class="board" id="board" aria-label="Tic tac toe board"></div>
-      <div class="help">Tap any open square. Three faces in a row wins.</div>
-    </section>
-  </main>
-  <script>
-    const boardEl = document.getElementById("board");
-    const statusEl = document.getElementById("status");
-    const cards = [document.getElementById("card1"), document.getElementById("card2")];
-    const nameInputs = [document.getElementById("name1"), document.getElementById("name2")];
-    const photoInputs = [document.getElementById("photo1"), document.getElementById("photo2")];
-    const previews = [document.getElementById("previewWrap1"), document.getElementById("previewWrap2")];
-    let board = Array(9).fill(null);
-    let currentPlayer = 0;
-    let gameOver = false;
-    let photos = [null, null];
-    const winningLines = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-    function playerName(index) {
-      return nameInputs[index].value.trim() || `Player ${index + 1}`;
-    }
-    function makePiece(player) {
-      if (photos[player]) {
-        const img = document.createElement("img");
-        img.src = photos[player];
-        img.alt = `${playerName(player)} face`;
-        return img;
-      }
-      const fallback = document.createElement("div");
-      fallback.className = "fallback";
-      fallback.textContent = player + 1;
-      return fallback;
-    }
-    function renderBoard() {
-      boardEl.innerHTML = "";
-      board.forEach((value, index) => {
-        const cell = document.createElement("button");
-        cell.className = "cell";
-        cell.setAttribute("aria-label", `Square ${index + 1}`);
-        if (value !== null) {
-          cell.classList.add(value === 1 ? "player2" : "player1");
-          cell.appendChild(makePiece(value));
-          cell.disabled = true;
-        } else {
-          cell.disabled = gameOver;
-          cell.addEventListener("click", () => play(index));
-        }
-        boardEl.appendChild(cell);
-      });
-    }
-    function play(index) {
-      if (gameOver || board[index] !== null) return;
-      board[index] = currentPlayer;
-      const winner = findWinner();
-      if (winner) {
-        gameOver = true;
-        statusEl.textContent = `${playerName(currentPlayer)} wins!`;
-        renderBoard();
-        winner.forEach(i => boardEl.children[i].classList.add("win"));
-        cards.forEach(card => card.classList.remove("active"));
-        return;
-      }
-      if (board.every(cell => cell !== null)) {
-        gameOver = true;
-        statusEl.textContent = "It's a draw!";
-        cards.forEach(card => card.classList.remove("active"));
-        renderBoard();
-        return;
-      }
-      currentPlayer = currentPlayer === 0 ? 1 : 0;
-      updateTurn();
-      renderBoard();
-    }
-    function findWinner() {
-      return winningLines.find(([a,b,c]) => board[a] !== null && board[a] === board[b] && board[a] === board[c]);
-    }
-    function updateTurn() {
-      statusEl.textContent = `${playerName(currentPlayer)}'s turn`;
-      cards.forEach((card, i) => card.classList.toggle("active", i === currentPlayer));
-    }
-    function newGame() {
-      board = Array(9).fill(null);
-      currentPlayer = 0;
-      gameOver = false;
-      updateTurn();
-      renderBoard();
-    }
-    function handlePhoto(player, file) {
-      if (!file) return;
-      if (!file.type.startsWith("image/")) {
-        alert("Please choose an image file.");
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = event => {
-        photos[player] = event.target.result;
-        const img = document.createElement("img");
-        img.src = photos[player];
-        img.alt = `${playerName(player)} preview`;
-        img.className = "avatar";
-        previews[player].replaceWith(img);
-        previews[player] = img;
-        renderBoard();
-      };
-      reader.readAsDataURL(file);
-    }
-    photoInputs.forEach((input, player) => {
-      input.addEventListener("change", () => handlePhoto(player, input.files[0]));
-    });
-    nameInputs.forEach(input => {
-      input.addEventListener("input", () => {
-        if (!gameOver) updateTurn();
-        renderBoard();
-      });
-    });
-    document.getElementById("newGame").addEventListener("click", newGame);
-    document.getElementById("clearPhotos").addEventListener("click", () => {
-      photos = [null, null];
-      photoInputs.forEach(input => input.value = "");
-      previews.forEach((preview, player) => {
-        const placeholder = document.createElement("div");
-        placeholder.id = `previewWrap${player + 1}`;
-        placeholder.className = "avatar placeholder";
-        placeholder.setAttribute("aria-label", `Player ${player + 1} preview`);
-        placeholder.textContent = player + 1;
-        preview.replaceWith(placeholder);
-        previews[player] = placeholder;
-      });
-      newGame();
-    });
-    renderBoard();
-  </script>
-</body>
-</html>
+<div class="wrap">
+<header class="hero"><small>ONLINE TWO‑PLAYER GAME</small><h1>Face‑Tac‑Toe</h1><p>Upload your faces and play from two different locations.</p></header>
+<section id="setup" class="panel setup">
+<h2>Create or join a room</h2>
+<div class="tabs"><button id="ctab" class="tab active">Create game</button><button id="jtab" class="tab">Join game</button></div>
+<form id="create" class="form">
+<div class="profile"><label class="photo" for="cphoto"><span id="cph">＋<br><small>ADD FACE</small></span><img id="cpv" class="hide" alt="Your face"></label><input id="cphoto" type="file" accept="image/*" hidden><div class="field"><label for="cname">Your name</label><input id="cname" maxlength="24" value="Player 1"><p class="note">You will be X and will host the room.</p></div></div>
+<button id="cbtn" class="primary">Create online room</button>
+</form>
+<form id="join" class="form hide">
+<div class="field"><label for="code">Room code</label><input id="code" maxlength="6" placeholder="ABC234" autocomplete="off"></div>
+<div class="profile"><label class="photo" for="jphoto"><span id="jph">＋<br><small>ADD FACE</small></span><img id="jpv" class="hide" alt="Your face"></label><input id="jphoto" type="file" accept="image/*" hidden><div class="field"><label for="jname">Your name</label><input id="jname" maxlength="24" value="Player 2"><p class="note">You will be O.</p></div></div>
+<button id="jbtn" class="primary">Connect to game</button>
+</form>
+<p class="note" style="margin-top:16px">Photos are resized in your browser and sent directly to the other player. The host must keep this page open.</p>
+</section>
+<section id="game" class="game hide">
+<aside class="panel side">
+<div class="room"><small>ROOM CODE</small><br><strong id="roomcode">------</strong><button id="share" class="primary share">Share invite link</button></div>
+<div class="players"><div id="p0" class="player"><div id="a0" class="avatar">X</div><div><strong id="n0">Player 1</strong><br><small>X · Host</small></div><span id="s0" class="score">0</span></div><div id="p1" class="player"><div id="a1" class="avatar o">O</div><div><strong id="n1">Waiting…</strong><br><small>O · Guest</small></div><span id="s1" class="score">0</span></div></div>
+<div id="status" class="status">Waiting for another player…</div>
+<p class="note">Round <strong id="round">1</strong>. Moves and photos travel directly between the two browsers.</p>
+<button id="leave" class="text">Leave room</button>
+</aside>
+<main class="panel"><div id="board" class="board"></div><div class="actions boardactions"><button id="next" class="primary hide">Next round</button><button id="reset" class="secondary">Reset match</button></div></main>
+</section>
+</div><div id="toast" class="toast hide"></div>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+let peer,conn,role=null,photo={host:null,guest:null},room=null,toastTimer;
+const cells=[];for(let i=0;i<9;i++){const b=document.createElement('button');b.className='cell';b.dataset.i=i;b.onclick=()=>move(i);$('#board').append(b);cells.push(b)}
+function toast(t){clearTimeout(toastTimer);$('#toast').textContent=t;$('#toast').classList.remove('hide');toastTimer=setTimeout(()=>$('#toast').classList.add('hide'),3000)}
+function code(v){return String(v||'').toUpperCase().replace(/[^A-Z2-9]/g,'').slice(0,6)}
+function newCode(){const a=new Uint8Array(6);crypto.getRandomValues(a);return [...a].map(x=>alphabet[x%alphabet.length]).join('')}
+function name(v,f){return String(v||'').replace(/[<>]/g,'').trim().slice(0,24)||f}
+function invite(){const u=new URL(location.href);u.search='';u.searchParams.set('room',room.id);return u.toString()}
+function profile(kind){const sel=kind==='host'?'#cname':'#jname';return{name:name($(sel).value,kind==='host'?'Player 1':'Player 2'),photo:photo[kind]}}
+function resize(file){return new Promise((resolve,reject)=>{if(!file?.type.startsWith('image/'))return reject(Error('Choose an image file.'));const im=new Image(),u=URL.createObjectURL(file);im.onload=()=>{URL.revokeObjectURL(u);const c=document.createElement('canvas'),x=c.getContext('2d'),side=Math.min(im.width,im.height);c.width=c.height=220;x.fillStyle='#fff';x.fillRect(0,0,220,220);x.drawImage(im,(im.width-side)/2,(im.height-side)/2,side,side,0,0,220,220);resolve(c.toDataURL('image/jpeg',.75))};im.onerror=()=>reject(Error('Could not read that photo.'));im.src=u})}
+async function photoChange(kind,input,preview,placeholder){try{photo[kind]=await resize(input.files[0]);preview.src=photo[kind];preview.classList.remove('hide');placeholder.classList.add('hide')}catch(e){toast(e.message)}input.value=''}
+$('#cphoto').onchange=()=>photoChange('host',$('#cphoto'),$('#cpv'),$('#cph'));$('#jphoto').onchange=()=>photoChange('guest',$('#jphoto'),$('#jpv'),$('#jph'));
+function tab(which){$('#create').classList.toggle('hide',which!=='c');$('#join').classList.toggle('hide',which!=='j');$('#ctab').classList.toggle('active',which==='c');$('#jtab').classList.toggle('active',which==='j')}$('#ctab').onclick=()=>tab('c');$('#jtab').onclick=()=>tab('j');$('#code').oninput=()=>$('#code').value=code($('#code').value);
+function blank(host){return{id:newCode(),players:[host,null],board:Array(9).fill(null),turn:0,start:0,winner:null,line:null,status:'waiting',scores:[0,0],round:1,version:1}}
+function send(m){if(conn?.open)conn.send(m)}function sendState(){send({type:'state',room})}
+function peerId(id){return'face-tac-toe-'+id.toLowerCase()}
+function peerError(e){const m=e.type==='unavailable-id'?'That room code was already taken. Please create another room.':e.type==='peer-unavailable'?'Room not found. Ask the host to keep their page open.':'Connection problem. Please try again.';toast(m)}
+function bindConnection(c,asHost){conn=c;c.on('open',()=>{if(asHost){send({type:'hello'});sendState()}else send({type:'join',profile:profile('guest')})});c.on('data',m=>receive(m));c.on('close',()=>{if(room?.players[1]){room.players[1].online=false;render()}toast('The other player disconnected.')});c.on('error',peerError)}
+function receive(m){if(!m||typeof m!=='object')return;if(role==='host'){if(m.type==='join'){room.players[1]={...m.profile,online:true};room.status='playing';room.version++;sendState();render()}else if(m.type==='move')hostMove(1,m.i);else if(m.type==='next')nextRound();else if(m.type==='reset')resetMatch()}else if(m.type==='state'){room=m.room;render()}}
+function showGame(){history.replaceState({},'',invite());$('#setup').classList.add('hide');$('#game').classList.remove('hide');$('#roomcode').textContent=room.id;render()}
+function createPeer(id){return new Promise((resolve,reject)=>{if(!window.Peer)return reject(Error('The online connection library did not load.'));const p=new Peer(id);const timer=setTimeout(()=>reject(Error('Connection timed out.')),12000);p.on('open',()=>{clearTimeout(timer);resolve(p)});p.on('error',e=>{clearTimeout(timer);reject(Object.assign(Error(e.message),{type:e.type}))})})}
+$('#create').onsubmit=async e=>{e.preventDefault();$('#cbtn').disabled=true;try{room=blank(profile('host'));role='host';peer=await createPeer(peerId(room.id));peer.on('connection',c=>{if(conn?.open){c.close();return}bindConnection(c,true)});peer.on('error',peerError);showGame();toast('Room created. Send your friend the invite link.')}catch(e){peerError(e)}finally{$('#cbtn').disabled=false}};
+$('#join').onsubmit=async e=>{e.preventDefault();const id=code($('#code').value);if(id.length!==6)return toast('Enter the six-character room code.');$('#jbtn').disabled=true;try{role='guest';room={id,players:[null,profile('guest')],board:Array(9).fill(null),turn:0,start:0,winner:null,line:null,status:'connecting',scores:[0,0],round:1};peer=await createPeer();bindConnection(peer.connect(peerId(id),{reliable:true}),false);peer.on('error',peerError);showGame()}catch(e){peerError(e)}finally{$('#jbtn').disabled=false}};
+function result(){for(const line of wins){const[a,b,c]=line;if(room.board[a]!=null&&room.board[a]===room.board[b]&&room.board[a]===room.board[c])return{winner:room.board[a],line}}return room.board.every(x=>x!=null)?{winner:null,line:null}:null}
+function hostMove(who,i){if(role!=='host'||room.status!=='playing'||room.turn!==who||room.board[i]!=null)return;room.board[i]=who;const r=result();if(r){room.winner=r.winner;room.line=r.line;room.status=r.winner==null?'draw':'done';if(r.winner!=null)room.scores[r.winner]++}else room.turn=1-who;room.version++;sendState();render()}
+function move(i){if(!room||room.status!=='playing'||room.board[i]!=null)return;const who=role==='host'?0:1;if(room.turn!==who)return toast('It is not your turn.');if(role==='host')hostMove(0,i);else send({type:'move',i})}
+function doNext(){room.round++;room.start=1-room.start;room.turn=room.start;room.board=Array(9).fill(null);room.winner=null;room.line=null;room.status=room.players[1]?'playing':'waiting';room.version++;sendState();render()}
+function nextRound(){if(role==='host')doNext();else send({type:'next'})}function doReset(){room.scores=[0,0];room.round=1;room.start=0;room.turn=0;room.board=Array(9).fill(null);room.winner=null;room.line=null;room.status=room.players[1]?'playing':'waiting';room.version++;sendState();render()}function resetMatch(){if(role==='host')doReset();else send({type:'reset'})}
+function face(el,p,mark){el.innerHTML='';el.className='avatar'+(mark==='O'?' o':'');if(p?.photo){const im=new Image;im.src=p.photo;im.alt=p.name;el.append(im)}else el.textContent=mark}
+function piece(p,mark){const d=document.createElement('div');d.className='piece'+(mark==='O'?' o':'');if(p?.photo){const im=new Image;im.src=p.photo;im.alt=p.name;d.append(im)}else d.textContent=mark;return d}
+function render(){if(!room)return;$('#roomcode').textContent=room.id;$('#round').textContent=room.round;for(let i=0;i<2;i++){const p=room.players[i],mark=i?'O':'X';$(`#n${i}`).textContent=p?.name||(i?'Waiting…':'Player 1');$(`#s${i}`).textContent=room.scores[i];face($(`#a${i}`),p,mark);$(`#p${i}`).classList.toggle('turn',room.status==='playing'&&room.turn===i)}cells.forEach((c,i)=>{c.innerHTML='';c.classList.toggle('win',room.line?.includes(i));const v=room.board[i];if(v!=null)c.append(piece(room.players[v],v?'O':'X'));c.disabled=v!=null||room.status!=='playing'||room.turn!==(role==='host'?0:1)});let msg='';if(room.status==='waiting'||room.status==='connecting')msg=role==='host'?'Waiting for your friend to connect…':'Connecting to the host…';else if(room.status==='playing')msg=room.turn===(role==='host'?0:1)?'Your turn':'Their turn';else if(room.status==='draw')msg='Draw! Start another round.';else msg=room.winner===(role==='host'?0:1)?'You won this round!':`${room.players[room.winner]?.name||'Opponent'} won this round.`;$('#status').textContent=msg;$('#next').classList.toggle('hide',!['done','draw'].includes(room.status))}
+async function share(){try{const u=invite();if(navigator.share)await navigator.share({title:'Face‑Tac‑Toe',text:`Join my room ${room.id}`,url:u});else{await navigator.clipboard.writeText(u);toast('Invite link copied.')}}catch(e){if(e.name!=='AbortError')toast('Could not share the link.')}}
+$('#share').onclick=share;$('#next').onclick=nextRound;$('#reset').onclick=()=>confirm('Reset both scores?')&&resetMatch();$('#leave').onclick=()=>{peer?.destroy();history.replaceState({},'',location.pathname);location.reload()};
+const incoming=code(new URLSearchParams(location.search).get('room'));if(incoming){tab('j');$('#code').value=incoming}
+</script>
+</body></html>
