@@ -2,10 +2,12 @@
    Only same-origin files are cached. Online play goes through the network
    untouched, so rooms and live moves keep working.
    Bump VERSION whenever you change app files so installed copies refresh. */
-const VERSION='face-tic-tac-toe-v1';
+const VERSION='face-tic-tac-toe-v2';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
-  'icons/icon.svg'
+  'icons/icon.svg',
+  'icons/icon-192.png', 'icons/icon-512.png', 'icons/icon-maskable-512.png',
+  'icons/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {
