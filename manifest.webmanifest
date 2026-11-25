@@ -1,0 +1,24 @@
+{
+  "name": "Face-Tac-Toe Online",
+  "short_name": "Face-Tac-Toe",
+  "description": "Upload your faces and play tic-tac-toe from two different locations.",
+  "id": "./",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#fff8ec",
+  "theme_color": "#241744",
+  "categories": [
+    "games",
+    "entertainment"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
