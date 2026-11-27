@@ -66,7 +66,22 @@ function peerError(e){const m=e.type==='unavailable-id'?'That room code was alre
 function bindConnection(c,asHost){conn=c;c.on('open',()=>{if(asHost){send({type:'hello'});sendState()}else send({type:'join',profile:profile('guest')})});c.on('data',m=>receive(m));c.on('close',()=>{if(room?.players[1]){room.players[1].online=false;render()}toast('The other player disconnected.')});c.on('error',peerError)}
 function receive(m){if(!m||typeof m!=='object')return;if(role==='host'){if(m.type==='join'){room.players[1]={...m.profile,online:true};room.status='playing';room.version++;sendState();render()}else if(m.type==='move')hostMove(1,m.i);else if(m.type==='next')nextRound();else if(m.type==='reset')resetMatch()}else if(m.type==='state'){room=m.room;render()}}
 function showGame(){history.replaceState({},'',invite());$('#setup').classList.add('hide');$('#game').classList.remove('hide');$('#roomcode').textContent=room.id;render()}
-function createPeer(id){return new Promise((resolve,reject)=>{if(!window.Peer)return reject(Error('The online connection library did not load.'));const p=new Peer(id);const timer=setTimeout(()=>reject(Error('Connection timed out.')),12000);p.on('open',()=>{clearTimeout(timer);resolve(p)});p.on('error',e=>{clearTimeout(timer);reject(Object.assign(Error(e.message),{type:e.type}))})})}
+// TURN relay (issue #2). When the two players can't reach each other
+// directly (strict NAT, firewall, UDP blocked), WebRTC needs a relay.
+// PeerJS's built-in relays only use port 3478 and are often blocked or
+// down, so Metered relays on ports 80/443 (UDP, TCP and TLS) come first;
+// the PeerJS defaults stay as a fallback. A browser app can't hide TURN
+// credentials, so keep a low usage limit on this credential in the
+// Metered dashboard (dashboard.metered.ca).
+const TURN_USER='060ff6c38cfb6e1f256bb448', TURN_PASS='jvZ7AdRKic1kKsiq';
+const ICE_SERVERS=[
+  {urls:'stun:stun.relay.metered.ca:80'},
+  {urls:['turn:global.relay.metered.ca:80','turn:global.relay.metered.ca:80?transport=tcp','turn:global.relay.metered.ca:443','turns:global.relay.metered.ca:443?transport=tcp'],username:TURN_USER,credential:TURN_PASS},
+  {urls:['turn:standard.relay.metered.ca:80','turn:standard.relay.metered.ca:80?transport=tcp','turn:standard.relay.metered.ca:443','turns:standard.relay.metered.ca:443?transport=tcp'],username:TURN_USER,credential:TURN_PASS},
+  {urls:'stun:stun.l.google.com:19302'},
+  {urls:['turn:eu-0.turn.peerjs.com:3478','turn:us-0.turn.peerjs.com:3478'],username:'peerjs',credential:'peerjsp'}
+];
+function createPeer(id){return new Promise((resolve,reject)=>{if(!window.Peer)return reject(Error('The online connection library did not load.'));const p=new Peer(id,{config:{iceServers:ICE_SERVERS}});const timer=setTimeout(()=>reject(Error('Connection timed out.')),12000);p.on('open',()=>{clearTimeout(timer);resolve(p)});p.on('error',e=>{clearTimeout(timer);reject(Object.assign(Error(e.message),{type:e.type}))})})}
 $('#create').onsubmit=async e=>{e.preventDefault();$('#cbtn').disabled=true;try{room=blank(profile('host'));role='host';peer=await createPeer(peerId(room.id));peer.on('connection',c=>{if(conn?.open){c.close();return}bindConnection(c,true)});peer.on('error',peerError);showGame();toast('Room created. Send your friend the invite link.')}catch(e){peerError(e)}finally{$('#cbtn').disabled=false}};
 $('#join').onsubmit=async e=>{e.preventDefault();const id=code($('#code').value);if(id.length!==6)return toast('Enter the six-character room code.');$('#jbtn').disabled=true;try{role='guest';room={id,players:[null,profile('guest')],board:Array(9).fill(null),turn:0,start:0,winner:null,line:null,status:'connecting',scores:[0,0],round:1};peer=await createPeer();bindConnection(peer.connect(peerId(id),{reliable:true}),false);peer.on('error',peerError);showGame()}catch(e){peerError(e)}finally{$('#jbtn').disabled=false}};
 function result(){for(const line of wins){const[a,b,c]=line;if(room.board[a]!=null&&room.board[a]===room.board[b]&&room.board[a]===room.board[c])return{winner:room.board[a],line}}return room.board.every(x=>x!=null)?{winner:null,line:null}:null}
