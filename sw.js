@@ -2,7 +2,7 @@
    Only same-origin files are cached. Online play goes through the network
    untouched, so rooms and live moves keep working.
    Bump VERSION whenever you change app files so installed copies refresh. */
-const VERSION='face-tic-tac-toe-v2';
+const VERSION='face-tic-tac-toe-v3';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
   'icons/icon.svg',
