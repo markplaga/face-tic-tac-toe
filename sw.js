@@ -4,9 +4,9 @@
 // - One cache per release, named pwa::markplaga/face-tic-tac-toe::<release>.
 //   Cache Storage is origin-wide, so only caches under that exact
 //   namespace are ever deleted, and only in activate, and only when
-//   they are not the current release's cache. The legacy cache
-//   (face-tic-tac-toe-v2) is deliberately RETAINED: it may still
-//   serve clients on the old worker. (The old worker's activate
+//   they are not the current release's cache. The legacy caches
+//   (face-tic-tac-toe-v2, face-tic-tac-toe-v3) are deliberately
+//   RETAINED: they may still serve clients on the old worker. (The old worker's activate
 //   deleted every cache whose name was not its own — including
 //   sibling apps' caches on this origin. This worker never does.)
 // - Version-consistent shell: a navigation is served from this
