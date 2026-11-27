@@ -23,8 +23,8 @@
 //   so there is nothing to cache for them.
 // - localStorage / sessionStorage / IndexedDB are never touched:
 //   this app keeps no saved data in storage at all.
-const RELEASE = '1.0.0-20261126-1';
-const DISPLAY_VERSION = '1.0.0';
+const RELEASE = '1.0.1-20261126-1';
+const DISPLAY_VERSION = '1.0.1';
 const NAMESPACE = 'pwa::markplaga/face-tic-tac-toe::';
 const CACHE = NAMESPACE + RELEASE;
 const SHELL = [
