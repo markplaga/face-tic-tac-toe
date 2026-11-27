@@ -13,11 +13,20 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="theme-color" content="#241744">
 <style>
-:root{--ink:#261b3d;--purple:#7654e8;--orange:#ff7b59;--cream:#fff8ec;--card:#fff;--muted:#6f687a;--line:#32244d}*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 0,#e9ddff,transparent 36%),radial-gradient(circle at 100% 100%,#ffd8c9,transparent 34%),var(--cream);padding:20px}.wrap{width:min(930px,100%);margin:auto}.hero{text-align:center;margin:12px 0 20px}.hero small{font-weight:900;letter-spacing:.15em;color:var(--purple)}h1{font-size:clamp(2.6rem,8vw,5rem);line-height:.95;margin:7px 0 8px;letter-spacing:-.06em}.hero p{margin:0;color:var(--muted)}.panel{background:rgba(255,255,255,.94);border:1px solid #ffffffb8;border-radius:25px;box-shadow:0 22px 55px #37285a1b;padding:22px}.setup{max-width:650px;margin:auto}.tabs,.row,.actions,.scorebar{display:flex;gap:12px}.tabs{margin:16px 0}.tabs button{flex:1}.tab.active{background:var(--purple);color:#fff}.tab{background:#eeeaf8}.form{display:grid;gap:15px}.profile{display:grid;grid-template-columns:105px 1fr;gap:16px;align-items:center}.photo{width:105px;aspect-ratio:1;border:2px dashed #b7a8df;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#f4efff;cursor:pointer;text-align:center;font-weight:800;color:var(--purple);padding:8px}.photo img{width:100%;height:100%;object-fit:cover}.photo small{font-size:.72rem}.field{display:grid;gap:6px}.field label{font-weight:850}.field input{width:100%;padding:13px 14px;border:1px solid #d8d2e1;border-radius:13px;font:inherit;font-weight:700}.note{font-size:.88rem;color:var(--muted);margin:0;line-height:1.45}button{border:0;border-radius:13px;padding:12px 16px;font:inherit;font-weight:850;cursor:pointer}.primary{background:var(--purple);color:#fff}.secondary{background:#eeeaf8;color:var(--ink)}.text{background:transparent;color:var(--muted)}button:disabled{opacity:.48;cursor:not-allowed}.game{display:grid;grid-template-columns:minmax(260px,330px) minmax(300px,1fr);gap:22px}.side{display:grid;gap:15px;align-content:start}.room{background:#f3eeff;border-radius:18px;padding:15px}.room strong{font-size:1.7rem;letter-spacing:.12em}.share{width:100%;margin-top:10px}.players{display:grid;gap:10px}.player{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:11px;border:2px solid #ede8f3;border-radius:16px;padding:11px}.player.turn{border-color:var(--purple);box-shadow:0 0 0 4px #7654e81d}.avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#eee8ff;color:var(--purple);font-weight:950;font-size:1.35rem}.avatar.o{background:#fff0eb;color:var(--orange)}.avatar img{width:100%;height:100%;object-fit:cover}.score{font-size:1.8rem;font-weight:950}.status{padding:14px;border-radius:16px;background:#2c2142;color:#fff;text-align:center;font-weight:850;min-height:51px;display:grid;place-items:center}.board{width:min(540px,100%);margin:auto;aspect-ratio:1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:var(--line);padding:10px;border-radius:24px}.cell{padding:0;background:#fff;border-radius:15px;display:grid;place-items:center;overflow:hidden}.piece{width:78%;height:78%;border-radius:50%;display:grid;place-items:center;font-size:clamp(2rem,9vw,5.5rem);font-weight:950;background:#eee8ff;color:var(--purple);box-shadow:0 0 0 5px var(--purple);animation:pop .17s ease-out}.piece.o{background:#fff0eb;color:var(--orange);box-shadow:0 0 0 5px var(--orange)}.piece img{width:100%;height:100%;object-fit:cover;border-radius:50%}.cell:disabled{opacity:1;cursor:default}.cell:empty::before{content:'';width:78%;height:78%;border-radius:50%;border:4px dashed #d9d2ea;background:#faf8ff;box-sizing:border-box;transition:border-color .15s,background .15s}.board.mine .cell:not(:disabled):empty::before{border-color:#b9a6f3}.board.mine.o .cell:not(:disabled):empty::before{border-color:#ffb9a6;background:#fffaf8}.board.mine .cell:not(:disabled):hover:empty::before{border-style:solid;border-color:var(--purple);background:#eee8ff}.board.mine.o .cell:not(:disabled):hover:empty::before{border-color:var(--orange);background:#fff0eb}.cell.win{background:#fff1a8;animation:pulse .7s alternate infinite}.boardactions{justify-content:center;margin-top:16px;flex-wrap:wrap}.hide{display:none!important}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#241b37;color:#fff;padding:12px 18px;border-radius:999px;font-weight:800;box-shadow:0 12px 30px #0003;z-index:10}@keyframes pop{from{transform:scale(.35);opacity:0}}@keyframes pulse{to{filter:brightness(1.08)}}@media(max-width:720px){.game{grid-template-columns:1fr}.profile{grid-template-columns:85px 1fr}.photo{width:85px}.panel{padding:16px}.side{order:2}}
+:root{--ink:#261b3d;--purple:#7654e8;--orange:#ff7b59;--cream:#fff8ec;--card:#fff;--muted:#6f687a;--line:#32244d}*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 0,#e9ddff,transparent 36%),radial-gradient(circle at 100% 100%,#ffd8c9,transparent 34%),var(--cream);padding:20px}.wrap{width:min(930px,100%);margin:auto}.hero{text-align:center;margin:12px 0 20px}.hero small{font-weight:900;letter-spacing:.15em;color:var(--purple)}h1{font-size:clamp(2.6rem,8vw,5rem);line-height:.95;margin:7px 0 8px;letter-spacing:-.06em}.hero p{margin:0;color:var(--muted)}.panel{background:rgba(255,255,255,.94);border:1px solid #ffffffb8;border-radius:25px;box-shadow:0 22px 55px #37285a1b;padding:22px}.setup{max-width:650px;margin:auto}.tabs,.row,.actions,.scorebar{display:flex;gap:12px}.tabs{margin:16px 0}.tabs button{flex:1}.tab.active{background:var(--purple);color:#fff}.tab{background:#eeeaf8}.form{display:grid;gap:15px}.profile{display:grid;grid-template-columns:105px 1fr;gap:16px;align-items:center}.photo{width:105px;aspect-ratio:1;border:2px dashed #b7a8df;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#f4efff;cursor:pointer;text-align:center;font-weight:800;color:var(--purple);padding:8px}.photo img{width:100%;height:100%;object-fit:cover}.photo small{font-size:.72rem}.field{display:grid;gap:6px}.field label{font-weight:850}.field input{width:100%;padding:13px 14px;border:1px solid #d8d2e1;border-radius:13px;font:inherit;font-weight:700}.note{font-size:.88rem;color:var(--muted);margin:0;line-height:1.45}button{border:0;border-radius:13px;padding:12px 16px;font:inherit;font-weight:850;cursor:pointer}.primary{background:var(--purple);color:#fff}.secondary{background:#eeeaf8;color:var(--ink)}.text{background:transparent;color:var(--muted)}button:disabled{opacity:.48;cursor:not-allowed}.game{display:grid;grid-template-columns:minmax(260px,330px) minmax(300px,1fr);gap:22px}.side{display:grid;gap:15px;align-content:start}.room{background:#f3eeff;border-radius:18px;padding:15px}.room strong{font-size:1.7rem;letter-spacing:.12em}.share{width:100%;margin-top:10px}.players{display:grid;gap:10px}.player{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:11px;border:2px solid #ede8f3;border-radius:16px;padding:11px}.player.turn{border-color:var(--purple);box-shadow:0 0 0 4px #7654e81d}.avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:#eee8ff;color:var(--purple);font-weight:950;font-size:1.35rem}.avatar.o{background:#fff0eb;color:var(--orange)}.avatar img{width:100%;height:100%;object-fit:cover}.score{font-size:1.8rem;font-weight:950}.status{padding:14px;border-radius:16px;background:#2c2142;color:#fff;text-align:center;font-weight:850;min-height:51px;display:grid;place-items:center}.board{width:min(540px,100%);margin:auto;aspect-ratio:1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;background:var(--line);padding:10px;border-radius:24px}.cell{padding:0;background:#fff;border-radius:15px;display:grid;place-items:center;overflow:hidden}.piece{width:78%;height:78%;border-radius:50%;display:grid;place-items:center;font-size:clamp(2rem,9vw,5.5rem);font-weight:950;background:#eee8ff;color:var(--purple);box-shadow:0 0 0 5px var(--purple);animation:pop .17s ease-out}.piece.o{background:#fff0eb;color:var(--orange);box-shadow:0 0 0 5px var(--orange)}.piece img{width:100%;height:100%;object-fit:cover;border-radius:50%}.cell:disabled{opacity:1;cursor:default}.cell:empty::before{content:'';width:78%;height:78%;border-radius:50%;border:4px dashed #d9d2ea;background:#faf8ff;box-sizing:border-box;transition:border-color .15s,background .15s}.board.mine .cell:not(:disabled):empty::before{border-color:#b9a6f3}.board.mine.o .cell:not(:disabled):empty::before{border-color:#ffb9a6;background:#fffaf8}.board.mine .cell:not(:disabled):hover:empty::before{border-style:solid;border-color:var(--purple);background:#eee8ff}.board.mine.o .cell:not(:disabled):hover:empty::before{border-color:var(--orange);background:#fff0eb}.cell.win{background:#fff1a8;animation:pulse .7s alternate infinite}.boardactions{justify-content:center;margin-top:16px;flex-wrap:wrap}.hide{display:none!important}[hidden]{display:none!important}
+/* PWA-UPDATE-SYSTEM v2 */
+.update-bar{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;background:#fff;border:1.5px solid var(--purple);border-radius:18px;padding:12px 14px;font-size:.92rem;margin:0 0 20px;box-shadow:0 12px 30px #37285a14}
+.update-bar .row{display:flex;gap:8px;flex-wrap:wrap}
+.appfoot{width:min(930px,100%);margin:8px auto 24px;padding:0 4px calc(8px + env(safe-area-inset-bottom, 0px));display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:.88rem;color:var(--muted)}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#241b37;color:#fff;padding:12px 18px;border-radius:999px;font-weight:800;box-shadow:0 12px 30px #0003;z-index:10}@keyframes pop{from{transform:scale(.35);opacity:0}}@keyframes pulse{to{filter:brightness(1.08)}}@media(max-width:720px){.game{grid-template-columns:1fr}.profile{grid-template-columns:85px 1fr}.photo{width:85px}.panel{padding:16px}.side{order:2}}
 </style>
 </head>
 <body>
 <div class="wrap">
+<!-- PWA-UPDATE-SYSTEM v2 -->
+<div class="update-bar" id="updateBar" role="status" aria-live="polite" hidden>
+  <span id="updateText">A new version of Face-Tac-Toe is ready. Your game and room live only in this tab — updating reloads the page and ends the room.</span>
+  <span class="row"><button id="updateNow" class="primary">Update now</button><button id="updateLater" class="secondary">Later</button></span>
+</div>
 <header class="hero"><small>ONLINE TWO‑PLAYER GAME</small><h1>Face‑Tac‑Toe</h1><p>Upload your faces and play from two different locations.</p></header>
 <section id="setup" class="panel setup">
 <h2>Create or join a room</h2>
@@ -43,7 +52,14 @@
 </aside>
 <main class="panel"><div id="board" class="board"></div><div class="actions boardactions"><button id="next" class="primary hide">Next round</button><button id="reset" class="secondary">Reset match</button></div></main>
 </section>
-</div><div id="toast" class="toast hide"></div>
+</div>
+<!-- PWA-UPDATE-SYSTEM v2 -->
+<footer class="appfoot">
+  <span>Face-Tac-Toe <b>v<span id="appVersion"></span></b></span>
+  <span id="updateStatus"></span>
+  <button id="checkUpdates" hidden>Check for updates</button>
+</footer>
+<div id="toast" class="toast hide"></div>
 <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
 <script>
 const $=s=>document.querySelector(s),alphabet='ABCDEFGHJKLMNPQRSTUVWXYZ23456789',wins=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
@@ -94,7 +110,275 @@ function piece(p,mark){const d=document.createElement('div');d.className='piece'
 function render(){if(!room)return;$('#roomcode').textContent=room.id;$('#round').textContent=room.round;for(let i=0;i<2;i++){const p=room.players[i],mark=i?'O':'X';$(`#n${i}`).textContent=p?.name||(i?'Waiting…':'Player 1');$(`#s${i}`).textContent=room.scores[i];face($(`#a${i}`),p,mark);$(`#p${i}`).classList.toggle('turn',room.status==='playing'&&room.turn===i)}cells.forEach((c,i)=>{c.innerHTML='';c.classList.toggle('win',!!room.line?.includes(i));const v=room.board[i];if(v!=null)c.append(piece(room.players[v],v?'O':'X'));c.disabled=v!=null||room.status!=='playing'||room.turn!==(role==='host'?0:1)});$('#board').classList.toggle('mine',room.status==='playing'&&room.turn===(role==='host'?0:1));$('#board').classList.toggle('o',role!=='host');let msg='';if(room.status==='waiting'||room.status==='connecting')msg=role==='host'?'Waiting for your friend to connect…':'Connecting to the host…';else if(room.status==='playing')msg=room.turn===(role==='host'?0:1)?'Your turn':'Their turn';else if(room.status==='draw')msg='Draw! Start another round.';else msg=room.winner===(role==='host'?0:1)?'You won this round!':`${room.players[room.winner]?.name||'Opponent'} won this round.`;$('#status').textContent=msg;$('#next').classList.toggle('hide',!['done','draw'].includes(room.status))}
 async function share(){try{const u=invite();if(navigator.share)await navigator.share({title:'Face‑Tac‑Toe',text:`Join my room ${room.id}`,url:u});else{await navigator.clipboard.writeText(u);toast('Invite link copied.')}}catch(e){if(e.name!=='AbortError')toast('Could not share the link.')}}
 $('#share').onclick=share;$('#next').onclick=nextRound;$('#reset').onclick=()=>confirm('Reset both scores?')&&resetMatch();$('#leave').onclick=()=>{peer?.destroy();history.replaceState({},'',location.pathname);location.reload()};
+
+// PWA-UPDATE-SYSTEM v2 bridge: the update script is a separate
+// <script> and must not guess at this script's state, so expose
+// only what an update needs. There is no save function and nothing
+// is persisted: the room, the live PeerJS connection, the board,
+// scores and face photos all live only in memory, so a reload would
+// end the game and close the room. isDirty is true while a room is
+// open, or a face photo has been picked but the room not yet created.
+window.__faceTicTacToeUpdate = {
+  isDirty: () => room !== null || photo.host !== null || photo.guest !== null
+};
 const incoming=code(new URLSearchParams(location.search).get('room'));if(incoming){tab('j');$('#code').value=incoming}
 </script>
-<script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }</script>
+<script>
+// PWA-UPDATE-SYSTEM v2: auto-update, version banner, Check for updates. Do not remove this line.
+const APP_RELEASE='1.0.0-20261126-1';
+const APP_VERSION='1.0.0';
+(function(){
+  var LATER_KEY = 'facetictactoe-update-later-v2';
+  var BC_NAME = 'facetictactoe-update-v2';
+
+  document.getElementById('appVersion').textContent = APP_VERSION;
+  var status = document.getElementById('updateStatus'), checkBtn = document.getElementById('checkUpdates'), bar = document.getElementById('updateBar');
+  var say = function(t){ status.textContent = t; };
+  if (!('serviceWorker' in navigator) || !/^https?:$/.test(location.protocol)) return;
+  checkBtn.hidden = false;
+
+  var reg = null, userAsked = false, reloading = false, updating = false;
+  var remote = null, pendingRelease = null, checkPromise = null;
+  // Release the user has acknowledged losing the in-memory game for
+  // (see applyUpdate). A new release needs a fresh acknowledgement.
+  var dirtyAck = null;
+  var tabId = 'tab-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+
+  // The app's own state lives in the v2 bridge
+  // (window.__faceTicTacToeUpdate, set up in the main script) is the
+  // only way this script can ask about it. If the bridge is missing,
+  // treat the tab as unsafe to update rather than guessing.
+  // There is no save function: the room, the live PeerJS connection,
+  // the board, scores and face photos live only in memory and a
+  // reload ends the game, so isDirty is the whole protection.
+  function bridge(){ return window.__faceTicTacToeUpdate || null; }
+  function thisTabBlocked(){
+    var b = bridge();
+    if (!b) return true;
+    try { return b.isDirty(); } catch (e) { return true; }
+  }
+
+  // Multi-tab coordination over BroadcastChannel.
+  var bc = null, bcWaiters = {};
+  try { if ('BroadcastChannel' in window) bc = new BroadcastChannel(BC_NAME); } catch (e) {}
+  if (bc) bc.onmessage = function(ev){
+    var d = ev.data || {};
+    if (d.type === 'update-query' && d.from !== tabId) {
+      try { bc.postMessage({ type: 'update-response', id: d.id, from: tabId, blocked: thisTabBlocked() }); } catch (e) {}
+    } else if (d.type === 'update-response' && bcWaiters[d.id]) {
+      bcWaiters[d.id].push(d);
+    }
+  };
+  function queryTabs(release){
+    return new Promise(function(resolve){
+      if (!bc) return resolve([]);
+      var id = 'q-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      var answers = [];
+      bcWaiters[id] = answers;
+      try { bc.postMessage({ type: 'update-query', id: id, from: tabId, release: release }); } catch (e) {}
+      setTimeout(function(){ delete bcWaiters[id]; resolve(answers); }, 800);
+    });
+  }
+
+  function workerVersion(worker, ms){
+    return new Promise(function(resolve){
+      if (!worker || !('MessageChannel' in window)) return resolve(null);
+      var done = false, timer = null;
+      try {
+        var ch = new MessageChannel();
+        timer = setTimeout(function(){ if (!done) { done = true; resolve(null); } }, ms);
+        ch.port1.onmessage = function(ev){
+          if (done) return; done = true; clearTimeout(timer);
+          var d = ev.data || {};
+          resolve((d.release && d.displayVersion) ? d : null);
+        };
+        worker.postMessage({ type: 'GET_VERSION' }, [ch.port2]);
+      } catch (e) { if (timer) clearTimeout(timer); resolve(null); }
+    });
+  }
+  function workerClientCount(worker){
+    return new Promise(function(resolve){
+      if (!worker || !('MessageChannel' in window)) return resolve(null);
+      var done = false, timer = null;
+      try {
+        var ch = new MessageChannel();
+        timer = setTimeout(function(){ if (!done) { done = true; resolve(null); } }, 2000);
+        ch.port1.onmessage = function(ev){
+          if (done) return; done = true; clearTimeout(timer);
+          var d = ev.data || {};
+          resolve(typeof d.count === 'number' ? d.count : null);
+        };
+        worker.postMessage({ type: 'GET_CLIENTS' }, [ch.port2]);
+      } catch (e) { if (timer) clearTimeout(timer); resolve(null); }
+    });
+  }
+  function waitControllerChange(ms){
+    return new Promise(function(resolve){
+      var done = false;
+      var timer = setTimeout(function(){ if (!done) { done = true; resolve(false); } }, ms);
+      var onChange = function(){
+        if (done) return; done = true; clearTimeout(timer);
+        navigator.serviceWorker.removeEventListener('controllerchange', onChange);
+        resolve(true);
+      };
+      navigator.serviceWorker.addEventListener('controllerchange', onChange);
+    });
+  }
+
+  function showBar(display, release, manual){
+    if (release) pendingRelease = release;
+    var later = null;
+    try { later = sessionStorage.getItem(LATER_KEY); } catch (e) {}
+    document.getElementById('updateText').textContent = 'Face-Tac-Toe ' + (display ? 'v' + display + ' ' : '') + 'is ready. Your game and room live only in this tab — updating reloads the page and ends the room.';
+    if (later && release && later === release && !manual) return;
+    bar.hidden = false;
+    say('An update is ready.');
+  }
+  function fetchRemote(){
+    return fetch('version.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(function(r){ if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function(info){ remote = (info && typeof info.release === 'string') ? info : null; return remote; })
+      .catch(function(){ remote = null; return null; });
+  }
+  function maybeShowUpdate(manual){
+    return fetchRemote().then(function(info){
+      if (reg) return reg.update().catch(function(){}).then(function(){ return info; });
+      return info;
+    }).then(function(info){
+      var w = reg && reg.waiting;
+      if (!w || !navigator.serviceWorker.controller) {
+        if (manual) {
+          if (!info) say('Could not reach the server. Try again when you are online.');
+          else if (info.release && info.release !== APP_RELEASE) say('Version ' + info.version + ' found. Downloading\u2026');
+          else say('You have the latest version (' + APP_VERSION + ').');
+        }
+        return false;
+      }
+      return workerVersion(w, 2000).then(function(verified){
+        if (verified) {
+          if (info && info.release && verified.release !== info.release) {
+            if (manual) say('The downloaded update did not match the published release. Try again.');
+            return false;
+          }
+          showBar(verified.displayVersion, verified.release, manual);
+          if (manual) say('An update is ready.');
+          return true;
+        }
+        // Handshake failed: show the banner, but name no version.
+        showBar(null, info && info.release, manual);
+        if (manual) say('An update is ready.');
+        return true;
+      });
+    });
+  }
+  function check(manual){
+    if (checkPromise) return checkPromise;
+    if (manual) { say('Checking\u2026'); checkBtn.disabled = true; }
+    checkPromise = maybeShowUpdate(manual).catch(function(){ return false; }).then(function(ok){
+      checkPromise = null;
+      if (manual) checkBtn.disabled = false;
+      return ok;
+    });
+    return checkPromise;
+  }
+  function track(w){
+    if (!w) return;
+    w.addEventListener('statechange', function(){
+      if (w.state === 'installed') check(false);
+    });
+  }
+
+  async function applyUpdate(){
+    if (updating) return;
+    updating = true;
+    try {
+      var w = reg && reg.waiting;
+      if (!w) { say('No update is waiting. Tap Check for updates first.'); return; }
+      var expected = pendingRelease || (remote && remote.release);
+      var b = bridge();
+      if (!b) { say('Could not reach the app to check your game. Try again.'); return; }
+      // 1. This tab: the room, the live connection, the board, the
+      // scores and the face photos live only in memory — there is no
+      // save function and nothing is persisted, so a reload would end
+      // the game. Ask first: the first tap warns and records the
+      // acknowledgement for this release only; the second tap
+      // proceeds. Finishing (or leaving) the game first is the way
+      // to keep nothing lost — the other player just reconnects to
+      // a fresh room.
+      var dirty = false;
+      try { dirty = b.isDirty(); } catch (e) { dirty = true; }
+      if (dirty && !(expected && dirtyAck === expected)) {
+        dirtyAck = expected;
+        say('You are in a game (or picked a face photo) — a reload would end the room and lose the game. Finish or leave the game first, then tap Update now again to update anyway.');
+        return;
+      }
+      // 2. Coordinate with other tabs of this app: a tab with a live
+      // game blocks the update — its user is not looking at this tab
+      // to consent.
+      say('Checking other tabs\u2026');
+      var answers = await queryTabs(expected);
+      if (answers.some(function(a){ return a.blocked; })) {
+        say('Another Face-Tac-Toe tab is in a game — finish or leave it there first, or close that tab.');
+        return;
+      }
+      if (answers.length === 0) {
+        var count = await workerClientCount(w);
+        if (count === null || count > 1) {
+          say('Another Face-Tac-Toe tab is open and couldn\u2019t confirm it\u2019s safe.');
+          return;
+        }
+      }
+      // 3. Activate only the specific waiting worker.
+      say('Updating\u2026');
+      userAsked = true;
+      var changed = waitControllerChange(8000);
+      w.postMessage({ type: 'SKIP_WAITING' });
+      var ok = await changed;
+      if (!ok) {
+        userAsked = false;
+        say('The update did not start. Tap Update now to try again, or Later to defer it.');
+        return;
+      }
+      // 4. Verify the new controller really is the expected release,
+      // then reload exactly once. No blind reload fallback exists.
+      var info = await workerVersion(navigator.serviceWorker.controller, 2000);
+      if (!info || (expected && info.release !== expected)) {
+        userAsked = false;
+        say('The update did not take over as expected. Tap Update now to try again, or Later to defer it.');
+        return;
+      }
+      if (reloading) return;
+      reloading = true;
+      location.reload();
+    } finally { updating = false; }
+  }
+
+  document.getElementById('updateNow').onclick = applyUpdate;
+  document.getElementById('updateLater').onclick = function(){
+    bar.hidden = true;
+    dirtyAck = null;
+    try { sessionStorage.setItem(LATER_KEY, pendingRelease || (remote && remote.release) || '?'); } catch (e) {}
+    say('Update postponed. You will be asked again next time you open the app, or tap Check for updates.');
+  };
+  checkBtn.onclick = function(){ check(true); };
+  // A controllerchange on its own (first install, or an update
+  // activated from another tab) never reloads this page: only an
+  // explicit Update now in this tab does, after verification in
+  // applyUpdate. There is deliberately no reload here.
+  window.addEventListener('load', async function(){
+    try { reg = await navigator.serviceWorker.register('sw.js', { updateViaCache: 'none', scope: './' }); } catch (e) { return; }
+    if (reg.waiting) check(false);
+    track(reg.installing);
+    reg.addEventListener('updatefound', function(){ track(reg.installing); });
+    check(false);
+  });
+  var last = Date.now();
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'visible' && Date.now() - last > 5 * 60e3) { last = Date.now(); check(false); }
+  });
+  setInterval(function(){
+    if (document.visibilityState === 'visible') { last = Date.now(); check(false); }
+  }, 60 * 60e3);
+})();
+</script>
 </body></html>
